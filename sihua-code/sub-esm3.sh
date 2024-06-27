@@ -16,7 +16,7 @@ cd $SLURM_SUBMIT_DIR
 ml Miniconda3/23.5.2-0
 module load CUDA/11.7.0
 
-export HUGGINGFACE_HUB_TOKEN=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
+export HUGGINGFACE_HUB_TOKEN=hf_pSscCVvWTLTgnHwUsZtkPkVVkuzxxnjbyPIsh
 
 
 echo "Activating Conda environment..."
