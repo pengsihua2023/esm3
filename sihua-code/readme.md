@@ -1,4 +1,4 @@
-## 代码注释： esm3/examples/local_client.py
+## 代码注释： /esm3/examples/local_client.py
 ```
 from esm.models.esm3 import ESM3
 from esm.sdk.api import (
