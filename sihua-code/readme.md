@@ -13,7 +13,7 @@ from esm.utils.types import FunctionAnnotation
 
 # 导入所需的模块和类，用于蛋白质序列的生成、采样、解码、结构预测等功能。
 
-def get_sample_protein() -> ESMProtein:
+def get_sample_protein() -> ESMProtein:  # "-> ESMProtein" 指出这个函数返回一个 ESMProtein 类型的对象。
     protein = ProteinChain.from_rcsb("1utn")  # 从PDB数据库加载蛋白质结构数据。
     protein = ESMProtein.from_protein_chain(protein)  # 将ProteinChain对象转换为ESMProtein对象。
     protein.function_annotations = [
