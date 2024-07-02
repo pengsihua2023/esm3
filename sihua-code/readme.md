@@ -119,8 +119,8 @@ protein.sasa = None：移除溶剂可接触表面积（SASA）信息，因为折
 下面是“思维链模式”在代码中的具体实现步骤：
 
 - 初始化蛋白质样本：
- - 使用 get_sample_protein() 函数获取蛋白质样本，并对其进行一些初始化设置，比如用占位符"_"填充序列，表示在此阶段不使用原有的序列信息。
- - 清除蛋白质的坐标（cot_protein.coordinates = None）和表面可接触面积（cot_protein.sasa = None）信息，为接下来的结构和序列预测做准备。
+ 使用 get_sample_protein() 函数获取蛋白质样本，并对其进行一些初始化设置，比如用占位符"_"填充序列，表示在此阶段不使用原有的序列信息。
+ 清除蛋白质的坐标（cot_protein.coordinates = None）和表面可接触面积（cot_protein.sasa = None）信息，为接下来的结构和序列预测做准备。
 
 - 编码蛋白质：
 通过 client.encode(cot_protein) 将初始化后的蛋白质对象转化为模型可以处理的张量表示形式。
