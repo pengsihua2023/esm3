@@ -1,4 +1,4 @@
-##structure_tokenizer.py
+## structure_tokenizer.py
 
 ```
 from esm.tokenization.tokenizer_base import EsmTokenizerBase  # 从esm.tokenization.tokenizer_base模块导入EsmTokenizerBase基类
