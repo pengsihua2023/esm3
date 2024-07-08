@@ -20,7 +20,7 @@ class ProteinDataset(Dataset):
 
 # 加载和准备模型
 def load_and_prepare_model(device):
-    model = esm3.ESM3_sm_open_v0(pretrained=True)
+    model = ESM3_sm_open_v0(pretrained=True)
     model.to(device)
     # 设置微调参数
     for name, param in model.named_parameters():
