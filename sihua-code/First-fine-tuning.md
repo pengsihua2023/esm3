@@ -5,7 +5,7 @@ from torch.utils.data import Dataset, DataLoader
 from torch.optim import Adam
 from Bio import SeqIO
 import torch.nn.functional as F
-from esm.pretrained import esm3  # 确保正确导入模型库
+from esm.pretrained import ESM3_sm_open_v0  # 确保正确导入模型库
 
 # 自定义数据集类，用于加载蛋白质序列
 class ProteinDataset(Dataset):
