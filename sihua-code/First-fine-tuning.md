@@ -4,31 +4,19 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 from torch.optim import Adam
 from Bio import SeqIO
-import random
 import torch.nn.functional as F
 from esm.pretrained import esm3  # 确保正确导入模型库
 
-# 自定义数据集类，用于蒙版序列生成
-class MaskedProteinDataset(Dataset):
-    def __init__(self, fasta_file, mask_token="<mask>", mask_prob=0.15):
+# 自定义数据集类，用于加载蛋白质序列
+class ProteinDataset(Dataset):
+    def __init__(self, fasta_file):
         self.proteins = [str(record.seq) for record in SeqIO.parse(fasta_file, "fasta")]
-        self.mask_token = mask_token
-        self.mask_prob = mask_prob
-    
-    def mask_sequence(self, sequence):
-        chars = list(sequence)
-        for i in range(len(chars)):
-            if random.random() < self.mask_prob:
-                chars[i] = self.mask_token
-        return ''.join(chars)
     
     def __len__(self):
         return len(self.proteins)
     
     def __getitem__(self, idx):
-        orig_seq = self.proteins[idx]
-        masked_seq = self.mask_sequence(orig_seq)
-        return masked_seq, orig_seq
+        return self.proteins[idx]
 
 # 加载和准备模型
 def load_and_prepare_model(device):
@@ -47,16 +35,15 @@ def train(model, loader, optimizer, device, epochs=5):
     model.train()
     for epoch in range(epochs):
         total_loss = 0
-        for masked_seq, orig_seq in loader:
+        for orig_seq in loader:
             # 转移到设备
-            masked_seq = torch.tensor([masked_seq], dtype=torch.long).to(device)
             orig_seq = torch.tensor([orig_seq], dtype=torch.long).to(device)
             
             # 前向传播
-            outputs = model(masked_seq)  # 确保模型可以接受并处理整数类型的输入
+            outputs = model(orig_seq)  # 确保模型可以接受并处理整数类型的输入
             
             # 计算损失
-            loss = F.cross_entropy(outputs.logits.transpose(1, 2), orig_seq)  # 确保损失计算适用于logits和标签
+            loss = F.cross_entropy(outputs.logits, orig_seq)  # 确保损失计算适用于logits和标签
             
             # 反向传播和优化
             optimizer.zero_grad()
@@ -80,10 +67,11 @@ if __name__ == "__main__":
 
     # 加载数据
     fasta_file = "HA_train.fa"
-    dataset = MaskedProteinDataset(fasta_file)
+    dataset = ProteinDataset(fasta_file)
     loader = DataLoader(dataset, batch_size=2, shuffle=True)
     
     # 训练模型
     train(model, loader, optimizer, device)
+
 
 ```
