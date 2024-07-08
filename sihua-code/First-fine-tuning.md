@@ -5,7 +5,7 @@ from torch.utils.data import Dataset, DataLoader
 from torch.optim import Adam
 from Bio import SeqIO
 import torch.nn.functional as F
-from esm.pretrained import ESM3_sm_open_v0  # 确保正确导入模型库
+from esm.pretrained import ESM3_sm_open_v0  # 从esm包导入预训练模型
 
 # 自定义数据集类，用于加载蛋白质序列
 class ProteinDataset(Dataset):
@@ -20,8 +20,7 @@ class ProteinDataset(Dataset):
 
 # 加载和准备模型
 def load_and_prepare_model(device):
-    model = ESM3_sm_open_v0(pretrained=True)
-    model.to(device)
+    model = ESM3_sm_open_v0(device=device)  # 使用device参数加载模型
     # 设置微调参数
     for name, param in model.named_parameters():
         if 'output_heads.sequence_head.0' in name or 'output_heads.sequence_head.2' in name or 'output_heads.sequence_head.3' in name:
@@ -72,6 +71,7 @@ if __name__ == "__main__":
     
     # 训练模型
     train(model, loader, optimizer, device)
+
 
 
 ```
