@@ -1,0 +1,2 @@
+## esm3实现本地推理和生成
+esm3.pys 主要实现了对 ESM-3（Evolutionary Scale Modeling 3）预训练模型的本地推理（Inference）和生成（Generation）功能，并 不直接支持远程 API 调用。也就是说，esm3.pys 提供了模型加载、前向传播、编码和解码等核心功能，但并未内置用于远程调用的 API 接口。
