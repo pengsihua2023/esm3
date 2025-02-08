@@ -143,3 +143,33 @@ def batch_embed(
 ESM C 6B's hidden states are really large, so we only allow one specific layer to be requested per API call. This also works for other ESM C models, but it is required for ESM C 6B. Refer to https://forge.evolutionaryscale.ai/console to find the number of hidden layers for each model.  
 ESM C 6B 的隐藏状态非常大，因此我们只允许每个 API 调用请求一个特定层。这也适用于其他 ESM C 模型，但 ESM C 6B 必须这样做。请参阅  
  https://forge.evolutionaryscale.ai/console 以查找每个模型的隐藏层数量。  
+以下是对代码的详细注释：
+
+```python
+# 配置 ESM-C 6B 模型的嵌入参数
+ESMC_6B_EMBEDDING_CONFIG = LogitsConfig(
+    return_hidden_states=True,  # 设为 True，表示返回隐藏层的状态（Hidden States）
+    ith_hidden_layer=55  # 指定返回第 55 层的隐藏状态
+)
+```
+
+### **代码解析**
+1. **`LogitsConfig` 配置推理参数**：
+   - `return_hidden_states=True`：要求 API 返回隐藏层状态，而不仅仅是最终输出。
+   - `ith_hidden_layer=55`：指定提取 **ESM-C 6B 模型的第 55 层**隐藏状态作为嵌入。
+
+2. **为什么选择第 55 层？**
+   - ESM-C 6B 是一个大规模 Transformer 模型，包含多层 Transformer 块。
+   - 在深度 Transformer 结构中，**较深层的表示通常包含更多高级特征**，适用于功能预测等任务。
+   - 研究表明，中间或较深层的隐藏状态可能比最终层的输出更适合作为嵌入。
+
+### **适用场景**
+- **蛋白质序列嵌入**：提取深度特征，用于分类、聚类、功能预测等任务。
+- **迁移学习**：利用预训练模型的中间层特征，而不是直接使用最终分类层的输出。
+- **自监督特征提取**：使用隐藏层状态作为通用特征表征，提高模型泛化能力。
+
+如果你希望获取多个层的隐藏状态，可以改为：
+```python
+ESMC_6B_EMBEDDING_CONFIG = LogitsConfig(return_hidden_states=True)
+```
+这将返回所有隐藏层的状态，而不仅仅是第 55 层。
