@@ -14,7 +14,7 @@ token = getpass("Token from Forge console: ")
 
 ```
 推荐使用 getpass()，特别是在共享或远程环境下，以避免泄露 Token。    
-以下是对代码的详细注释：
+
 
 ```python
 from esm.sdk import client  # 从 ESM SDK 导入 `client`，用于连接 ESM-C 服务器
