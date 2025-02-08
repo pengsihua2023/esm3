@@ -138,6 +138,8 @@ def batch_embed(
                 results.append(ESMProteinError(500, str(e)))
     
     return results  # 返回所有蛋白质序列的嵌入结果
-
-
 ```
+## Requesting a specific hidden layer 请求特定的隐藏层
+ESM C 6B's hidden states are really large, so we only allow one specific layer to be requested per API call. This also works for other ESM C models, but it is required for ESM C 6B. Refer to https://forge.evolutionaryscale.ai/console to find the number of hidden layers for each model.  
+ESM C 6B 的隐藏状态非常大，因此我们只允许每个 API 调用请求一个特定层。这也适用于其他 ESM C 模型，但 ESM C 6B 必须这样做。请参阅  
+ https://forge.evolutionaryscale.ai/console 以查找每个模型的隐藏层数量。  
