@@ -65,6 +65,9 @@ print(embedding)
 - 该代码**初始化 ESM-C 300M 远程推理模型**，用于蛋白质嵌入计算。
 - 需要**API Token** 进行身份认证（通过 `getpass()` 获取）。
 - **所有计算在远程服务器完成**，本地无需 GPU，仅需网络连接。
+
+![image](https://github.com/user-attachments/assets/e2e53034-74cd-4fe4-8005-90248bcb9aff)  
+
 ```
 from concurrent.futures import ThreadPoolExecutor  # 导入线程池执行器，用于并行处理多个任务
 from typing import Sequence  # 导入 Sequence 类型，用于类型注解
